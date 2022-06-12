@@ -11,7 +11,7 @@ public class CameraMovement : MonoBehaviour
     public float sensitivity = 1f;
 
     public float cameraFov = 75; // change this to player preference in Start()
-    public float cameraZoomFov = 30; // change this to player preference in Start()
+    public float cameraZoomFov = 25; // change this to player preference in Start()
 
     // Clamp Angles
     private float minYAngle = -30f;
@@ -72,7 +72,7 @@ public class CameraMovement : MonoBehaviour
         }
 
         // Camera Zoom via FOV Manupilation
-        if (Input.GetKey(KeyCode.LeftShift))
+        if (Input.GetKey(KeyCode.Space))
         {
             Camera.main.fieldOfView = cameraZoomFov;
         }

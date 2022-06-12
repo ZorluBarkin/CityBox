@@ -17,7 +17,8 @@ public class ObjectPlacer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetMouseButtonDown(0)){
+        if (Input.GetMouseButtonDown(0) && !(Input.GetKey(KeyCode.LeftShift)))
+        {
 
             RaycastHit hit;
 
@@ -26,16 +27,35 @@ public class ObjectPlacer : MonoBehaviour
             if (Physics.Raycast(ray, out hit))
             {
 
-                if(hit.collider.CompareTag("Building"))
+                if (hit.collider.CompareTag("Building"))
                 {
                     //Debug.Log("Collision");
                     PalceObjectAbove(hit.point);
-                }else if(hit.collider.CompareTag("Environment"))
+                }
+                else if (hit.collider.CompareTag("Environment"))
                 {
                     //Debug.Log("No Collision");
                     PlaceObjectNear(hit.point);
                 }
-                   
+
+            }
+        }
+        else if (Input.GetKey(KeyCode.LeftShift)) {
+
+            if (Input.GetMouseButtonDown(0))
+            {
+                RaycastHit hit;
+
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+                if (Physics.Raycast(ray, out hit))
+                {
+
+                    if (hit.collider.CompareTag("Building"))
+                    {
+                        Destroy(hit.transform.gameObject);
+                    }
+                }
             }
         }
     }
