@@ -7,16 +7,41 @@ public class ObjectPlacer : MonoBehaviour
 
     private GridManager grid;
 
-    [SerializeField] private GameObject placedObject;
+    [SerializeField] private GameObject residentalObject; // currently assigned in editor
+    [SerializeField] private GameObject commercialObject; // "
+    [SerializeField] private GameObject roadObject; // "
+
+    private GameObject placedObject; // object to place down
+
+    public static bool useResidental;
+    public static bool useCommercial;
+    public static bool useRoad;
 
     void Awake()
     {
         grid = FindObjectOfType<GridManager>();
+        placedObject = residentalObject;
     }
 
     // Update is called once per frame
     void Update()
-    {   // object placement
+    {
+
+        // object selection
+        if (useResidental)
+        {
+            placedObject = residentalObject;
+        }
+        else if (useCommercial)
+        {
+            placedObject = commercialObject;
+        }
+        else if (useRoad)
+        {
+            placedObject=roadObject;
+        }
+
+        // object placement
         if (Input.GetMouseButtonDown(0) && !(Input.GetKey(KeyCode.LeftShift)))
         {
 
@@ -88,8 +113,8 @@ public class ObjectPlacer : MonoBehaviour
     {
 
         Vector3 finalPosition = grid.GetNearestPointOnGrid(clickPoint);
-
-        finalPosition.y += 0.5f;
+        
+        finalPosition.y -= 0.5f; // for the ray check
 
         RaycastHit hit;
 
@@ -100,6 +125,7 @@ public class ObjectPlacer : MonoBehaviour
         }
         else
         {
+            finalPosition.y += 1f; // 1 because 1-0.5 = 0.5 leads to the center of the cube.
             Instantiate(placedObject, finalPosition, Quaternion.identity);
         }
     }
