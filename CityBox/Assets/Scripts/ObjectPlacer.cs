@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class ObjectPlacer : MonoBehaviour
 {
@@ -49,8 +50,15 @@ public class ObjectPlacer : MonoBehaviour
 
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
+            // checks if the ray hit the UI if it did dont continue. (Panel is not raycast target yet rest is)
+            if (EventSystem.current.IsPointerOverGameObject())
+            {
+                return;
+            }
+
             if (Physics.Raycast(ray, out hit))
             {
+
                 if (hit.collider.CompareTag("Building"))
                 {
                     PlaceObjectAbove(hit.point);
