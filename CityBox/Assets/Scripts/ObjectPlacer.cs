@@ -16,7 +16,7 @@ public class ObjectPlacer : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
+    {   // object placement
         if (Input.GetMouseButtonDown(0) && !(Input.GetKey(KeyCode.LeftShift)))
         {
 
@@ -26,20 +26,18 @@ public class ObjectPlacer : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit))
             {
-
                 if (hit.collider.CompareTag("Building"))
                 {
-                    //Debug.Log("Collision");
-                    PalceObjectAbove(hit.point);
+                    PlaceObjectAbove(hit.point);
                 }
-                else if (hit.collider.CompareTag("Environment"))
+                else
                 {
-                    //Debug.Log("No Collision");
-                    PlaceObjectNear(hit.point);
+                    PlaceObject(hit.point);
                 }
-
+                
             }
-        }
+
+        } // Object deletion
         else if (Input.GetKey(KeyCode.LeftShift)) {
 
             if (Input.GetMouseButtonDown(0))
@@ -60,22 +58,50 @@ public class ObjectPlacer : MonoBehaviour
         }
     }
 
-    private void PlaceObjectNear(Vector3 clickPoint)
+    private void PlaceObject(Vector3 clickPoint)
     {
         Vector3 finalPosition = grid.GetNearestPointOnGrid(clickPoint);
 
-        // used to place a block 1x1 on the surface completely
-        finalPosition.y = 0.5f;
-        Debug.Log("placing initial");
-        Instantiate(placedObject, finalPosition, Quaternion.identity); // this is for object cloning
+        // 4.5 because the ray should start below surface which is 5
+        finalPosition.y = 4.5f;
+
+        RaycastHit hit;
+        
+        // check to see if the palce you are trying to fill occupied
+        if (Physics.Raycast(finalPosition, Vector3.up, out hit, 1f)){
+            
+            Debug.Log("Did Hit");
+            finalPosition.y += 2f;
+            Instantiate(placedObject, finalPosition, Quaternion.identity);
+
+        }
+        else
+        {
+            finalPosition.y = 5.5f;
+            Debug.Log("placing initial");
+            Instantiate(placedObject, finalPosition, Quaternion.identity); // this is for object cloning
+        }
+
     }
 
-    private void PalceObjectAbove(Vector3 clickPoint)
+    private void PlaceObjectAbove(Vector3 clickPoint)
     {
+
         Vector3 finalPosition = grid.GetNearestPointOnGrid(clickPoint);
+
         finalPosition.y += 0.5f;
-        Debug.Log("placing on " + finalPosition.y.ToString());
-        Instantiate(placedObject, finalPosition, Quaternion.identity);
+
+        RaycastHit hit;
+
+        // check to see if the palce you are trying to fill occupied
+        if (Physics.Raycast(finalPosition, Vector3.up, out hit, 1f))
+        {
+            Debug.Log("not able to place"); // in the future show/tell the player they cannot
+        }
+        else
+        {
+            Instantiate(placedObject, finalPosition, Quaternion.identity);
+        }
     }
 
 }
