@@ -1,18 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-7157937475184500780
-MonoBehaviour:
-  m_ObjectHideFlags: 11
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  version: 4
 --- !u!21 &2100000
 Material:
   serializedVersion: 6
@@ -20,15 +7,14 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Dark Grey
-  m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
+  m_Name: Water
+  m_Shader: {fileID: -6465566751694194690, guid: 56bdf423d80b0864ca31f4e4275631b2, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 2000
-  stringTagMap:
-    RenderType: Opaque
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
@@ -109,10 +95,6 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _SpecGlossMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _Splat0:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -146,6 +128,15 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - Vector1_02494d5589ac4da4af1d1f02296f8755: 0.01
+    - Vector1_115ded1239d24af9816b7ff4be4c1c55: 0.001
+    - Vector1_71071f14e7f443968c55a45c63b18274: 0.2
+    - Vector1_7fe5b5a3b5634323a9be46403af76412: 0.95
+    - Vector1_ad8dddc77ee34bd3aa7f89c262072b12: 1
+    - Vector1_b340bded9ec647dfac054e0c1c93b177: 0.2
+    - Vector1_b51b6968c1c84410bb5c0f3f7df3defe: 100
+    - Vector1_de84dcdffafb45b6be5cfd4840c2df28: 0.5
+    - Vector1_e64f927620a942d0a60eee69507f2b25: 1
     - _AlphaClip: 0
     - _Blend: 0
     - _BlendOp: 0
@@ -153,12 +144,9 @@ Material:
     - _CameraFadingEnabled: 0
     - _CameraFarFadeDistance: 2
     - _CameraNearFadeDistance: 1
-    - _ClearCoatMask: 0
-    - _ClearCoatSmoothness: 0
     - _ColorMode: 0
     - _Cull: 2
     - _Cutoff: 0.5
-    - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
     - _DistortionBlend: 0.5
     - _DistortionEnabled: 0
@@ -167,19 +155,18 @@ Material:
     - _DstBlend: 0
     - _EnableHeightBlend: 0
     - _EnableInstancedPerPixelNormal: 1
-    - _EnvironmentReflections: 1
     - _FlipbookBlending: 0
     - _FlipbookMode: 0
     - _GlossMapScale: 1
-    - _Glossiness: 0.5
+    - _Glossiness: 0.6
     - _GlossyReflections: 1
     - _HeightTransition: 0
-    - _Metallic: 0
+    - _Metallic: 0.4
     - _Metallic0: 0
     - _Metallic1: 0
     - _Metallic2: 0
     - _Metallic3: 0
-    - _Mode: 0
+    - _Mode: 3
     - _NumLayersCount: 1
     - _OcclusionStrength: 1
     - _Parallax: 0.02
@@ -198,14 +185,15 @@ Material:
     - _SrcBlend: 1
     - _Surface: 0
     - _UVSec: 0
-    - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - _BaseColor: {r: 0.13207549, g: 0.13207549, b: 0.13207549, a: 1}
+    - Color_44c813b7761a4c11ba1e6092418c2dcd: {r: 0, g: 0.41389617, b: 0.509434, a: 0.46666667}
+    - Color_63963e94211b43d1ad4f7977a94c24b5: {r: 0, g: 0.080045745, b: 0.18867922, a: 0.39215687}
+    - Vector2_37ec5ff280f044d79dd5d63b1aaec933: {r: 1, g: 1, b: 0, a: 0}
+    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _BaseColorAddSubDiff: {r: 0, g: 0, b: 0, a: 0}
     - _CameraFadeParams: {r: 0, g: 0, b: 0, a: 0}
-    - _Color: {r: 0.13207549, g: 0.13207549, b: 0.13207549, a: 1}
+    - _Color: {r: 0, g: 0.30691844, b: 0.6415094, a: 0.39215687}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SoftParticleFadeParams: {r: 0, g: 0, b: 0, a: 0}
-    - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
   m_BuildTextureStacks: []
