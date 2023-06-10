@@ -5,17 +5,21 @@ using UnityEngine;
 public class CameraMovement : MonoBehaviour
 {
     // public values are editable through game settings
-    public float speed;
-    public float ySpeed;
+    public float speed = 0.5f;
+    public float ySpeed = 0.5f;
+    public float rotationAmount = 1f;
 
     public float sensitivity = 1f;
 
-    public float cameraFov = 75; // change this to player preference in Start()
-    public float cameraZoomFov = 25; // change this to player preference in Start()
+    public float maxCameraFov = 75f; // change this to player preference in Start()
+    public float minCameraFov = 25f; // change this to player preference in Start()
+    private float currentFov = 75f;
 
     // Clamp Angles
     private float minYAngle = -30f;
     private float maxYAngle = 50f;
+
+    private float maxFrameRate = 61f;
 
     // For use in mouse rotation
     private Vector2 currentRotation;
@@ -23,28 +27,78 @@ public class CameraMovement : MonoBehaviour
     private void Start()
     {
         currentRotation.y = 0;
-        speed = 0.5f;
-        ySpeed = 0.5f;
+        maxFrameRate = Application.targetFrameRate;
     }
 
-    void FixedUpdate()
+    // camera movement done here
+    void Update()
     {
+        // Camera resets
+        if (Camera.main.fieldOfView > maxCameraFov)
+            Camera.main.fieldOfView = maxCameraFov;
+        else if (Camera.main.fieldOfView < minCameraFov)
+            Camera.main.fieldOfView = minCameraFov;
+
         // Declerations
         float height = 0.0f;
 
         // Input For Map Traverse
-        float xAxis = Input.GetAxis("Horizontal") * speed;
-        float zAxis = Input.GetAxis("Vertical") * speed;
+        float xAxis = Input.GetAxis("Horizontal") * speed * Time.deltaTime * maxFrameRate;
+        float zAxis = Input.GetAxis("Vertical") * speed * Time.deltaTime * maxFrameRate;
 
         // Input for Camera Height
-        if (Input.GetKey(KeyCode.Q) && transform.position.y > 0)
+        if (Input.GetKey(KeyCode.F) && transform.position.y > 0)
         {
-            height -= ySpeed;
+            height -= ySpeed * Time.deltaTime * maxFrameRate;
+
+        }
+        else if (Input.GetKey(KeyCode.R))
+        {
+            height += ySpeed * Time.deltaTime * maxFrameRate;
+        }
+        
+        // camera vertical rotation
+        if (Input.GetKey(KeyCode.T))
+        {
+            if (currentRotation.y > minYAngle)
+                currentRotation.y -= rotationAmount * Time.deltaTime * maxFrameRate;
+
+        }
+        else if (Input.GetKey(KeyCode.G))
+        {
+            if(currentRotation.y < maxYAngle)
+                currentRotation.y += rotationAmount * Time.deltaTime * maxFrameRate;
+        }
+
+        // camera horizontal rotation
+        if (Input.GetKey(KeyCode.Q))
+        {
+            
+            currentRotation.x -= rotationAmount * Time.deltaTime * maxFrameRate;
 
         }
         else if (Input.GetKey(KeyCode.E))
         {
-            height += ySpeed;
+            currentRotation.x += rotationAmount * Time.deltaTime * maxFrameRate;
+        }
+
+        // camera custom fov
+        if (Input.GetKey(KeyCode.X))
+        {
+            if(Camera.main.fieldOfView < maxCameraFov)
+            {
+                currentFov += 1f * Time.deltaTime * maxFrameRate;
+                Camera.main.fieldOfView += 1f * Time.deltaTime * maxFrameRate;
+            }
+        }
+        else if(Input.GetKey(KeyCode.Z))
+        {
+            if (Camera.main.fieldOfView > minCameraFov)
+            {
+                currentFov -= 1f * Time.deltaTime * maxFrameRate;
+                Camera.main.fieldOfView -= 1f * Time.deltaTime * maxFrameRate;
+            }
+                
         }
 
         // Axis Changes
@@ -74,11 +128,11 @@ public class CameraMovement : MonoBehaviour
         // Camera Zoom via FOV Manupilation
         if (Input.GetKey(KeyCode.Space))
         {
-            Camera.main.fieldOfView = cameraZoomFov;
+            Camera.main.fieldOfView = minCameraFov;
         }
         else
         {
-            Camera.main.fieldOfView = cameraFov;
+            Camera.main.fieldOfView = currentFov;
         }
 
         transform.rotation = Quaternion.Euler(currentRotation.y, currentRotation.x, 0);
