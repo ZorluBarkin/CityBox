@@ -1,19 +1,31 @@
+﻿/*  
+ * Copyright 2023 Barkın Zorlu 
+ * All rights reserved.
+ * 
+ * This work is licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License. 
+ * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-nd/4.0/ or send a letter to Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class CameraMovement : MonoBehaviour
 {
+    public Camera cam = null;
+
     // public values are editable through game settings
     public float speed = 0.5f;
-    public float ySpeed = 0.5f;
+    public float verticalSpeed = 0.5f;
     public float rotationAmount = 1f;
 
     public float sensitivity = 1f;
 
-    public float maxCameraFov = 75f; // change this to player preference in Start()
-    public float minCameraFov = 25f; // change this to player preference in Start()
-    private float currentFov = 75f;
+    // these are vertical FOV values
+    public float maxCameraFov = 60f; // change this to player preference in Start()
+    public float minCameraFov = 15f; // change this to player preference in Start()
+    private float currentFov = 50f;
 
     // Clamp Angles
     private float minYAngle = -30f;
@@ -26,18 +38,27 @@ public class CameraMovement : MonoBehaviour
 
     private void Start()
     {
+        
+        if(cam == null)
+            cam = Camera.main;
+
+        // Get values from Settings
+        maxCameraFov = Camera.HorizontalToVerticalFieldOfView(Settings._MaxHFOV, cam.aspect);
+        minCameraFov = Camera.HorizontalToVerticalFieldOfView(Settings._MinHFOV, cam.aspect);
+
         currentRotation.y = 0;
-        maxFrameRate = Application.targetFrameRate;
+        maxFrameRate = Application.targetFrameRate + 1;
     }
 
     // camera movement done here
     void Update()
     {
+        //float Hfov = Camera.VerticalToHorizontalFieldOfView(cam.fieldOfView, cam.aspect);
         // Camera resets
-        if (Camera.main.fieldOfView > maxCameraFov)
-            Camera.main.fieldOfView = maxCameraFov;
-        else if (Camera.main.fieldOfView < minCameraFov)
-            Camera.main.fieldOfView = minCameraFov;
+        if (cam.fieldOfView > maxCameraFov)
+            cam.fieldOfView = maxCameraFov;
+        else if (cam.fieldOfView < minCameraFov)
+            cam.fieldOfView = minCameraFov;
 
         // Declerations
         float height = 0.0f;
@@ -49,12 +70,12 @@ public class CameraMovement : MonoBehaviour
         // Input for Camera Height
         if (Input.GetKey(KeyCode.F) && transform.position.y > 0)
         {
-            height -= ySpeed * Time.deltaTime * maxFrameRate;
+            height -= verticalSpeed * Time.deltaTime * maxFrameRate;
 
         }
         else if (Input.GetKey(KeyCode.R))
         {
-            height += ySpeed * Time.deltaTime * maxFrameRate;
+            height += verticalSpeed * Time.deltaTime * maxFrameRate;
         }
         
         // camera vertical rotation
@@ -85,18 +106,18 @@ public class CameraMovement : MonoBehaviour
         // camera custom fov
         if (Input.GetKey(KeyCode.X))
         {
-            if(Camera.main.fieldOfView < maxCameraFov)
+            if(cam.fieldOfView < maxCameraFov)
             {
                 currentFov += 1f * Time.deltaTime * maxFrameRate;
-                Camera.main.fieldOfView += 1f * Time.deltaTime * maxFrameRate;
+                cam.fieldOfView += 1f * Time.deltaTime * maxFrameRate;
             }
         }
         else if(Input.GetKey(KeyCode.Z))
         {
-            if (Camera.main.fieldOfView > minCameraFov)
+            if (cam.fieldOfView > minCameraFov)
             {
                 currentFov -= 1f * Time.deltaTime * maxFrameRate;
-                Camera.main.fieldOfView -= 1f * Time.deltaTime * maxFrameRate;
+                cam.fieldOfView -= 1f * Time.deltaTime * maxFrameRate;
             }
                 
         }
@@ -128,11 +149,11 @@ public class CameraMovement : MonoBehaviour
         // Camera Zoom via FOV Manupilation
         if (Input.GetKey(KeyCode.Space))
         {
-            Camera.main.fieldOfView = minCameraFov;
+            cam.fieldOfView = minCameraFov;
         }
         else
         {
-            Camera.main.fieldOfView = currentFov;
+            cam.fieldOfView = currentFov;
         }
 
         transform.rotation = Quaternion.Euler(currentRotation.y, currentRotation.x, 0);
@@ -146,4 +167,5 @@ public class CameraMovement : MonoBehaviour
         transform.position += move;
 
     }
+
 }
