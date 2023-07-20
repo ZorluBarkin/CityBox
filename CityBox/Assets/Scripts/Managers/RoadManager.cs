@@ -183,9 +183,9 @@ public class PedestrianRoad
 
 public class RoadManager : MonoBehaviour
 {
-    public static VehicleRoadType vehicleRoadType = VehicleRoadType.None;
+    public VehicleRoadType vehicleRoadType = VehicleRoadType.None;
     public string currentVehicleRoadType = ""; // debug
-    public static PedestrianRoadType pedestrianRoadType = PedestrianRoadType.None;
+    public PedestrianRoadType pedestrianRoadType = PedestrianRoadType.None;
     public string currentPedestrianRoadType = ""; // debug
 
     private void Update()

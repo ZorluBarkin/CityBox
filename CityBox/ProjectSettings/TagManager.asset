@@ -5,7 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Environment
-  - Building
+  - Residental
+  - Commercial
+  - Unique
   layers:
   - Default
   - TransparentFX
@@ -13,8 +15,8 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
+  - Building
+  - Road
   - 
   - 
   - 

@@ -20,13 +20,26 @@ public enum BuildingType
 
 public class BuildingManager : MonoBehaviour
 {
-    public static BuildingType buildingType = BuildingType.None;
+    public int residenceCount = 0;
+    public int commercialCount = 0;
+    public int uniqueCount = 0;
 
-    public string currentBuildingType = ""; // debug
+    public BuildingType buildingType = BuildingType.None;
 
-    private void Update()
-    {
-        currentBuildingType = buildingType.ToString();
-    }
+    public GameObject residentalBase = null;
+    public GameObject residentalUpper = null;
+    public int residencePopulationLimit = 4;
+
+    public GameObject commercialBase = null;
+    public GameObject commercialUpper = null;
+
+    public GameObject uniqueBase = null;
+
+    //public string currentBuildingType = ""; // debug
+
+    //private void Update()
+    //{
+    //    currentBuildingType = buildingType.ToString();
+    //}
 
 }
