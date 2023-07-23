@@ -15,6 +15,6 @@ public class LifeCycleManager : MonoBehaviour
     public int population = 0;
     public int populationLimit = 0; // every residental building should add 4 to the limit
 
-    //public int availableJobs = 0;
+    //public int availableJobs = 0; // need to make job types as well
 
 }

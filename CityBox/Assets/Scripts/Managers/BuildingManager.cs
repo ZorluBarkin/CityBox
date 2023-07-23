@@ -23,6 +23,7 @@ public class BuildingManager : MonoBehaviour
 
     public BuildingType buildingType = BuildingType.None;
 
+    [Header("Building GameObjects")]
     public GameObject residentalBase = null;
     public GameObject residentalUpper = null;
     public int residencePopulationLimit = 4;

@@ -362,12 +362,12 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 874260337}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: OnBuildingButtonClick
+        m_MethodName: OnVehicleRoadButtonClick
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -655,13 +655,13 @@ GameObject:
   - component: {fileID: 229857971}
   - component: {fileID: 229857970}
   - component: {fileID: 229857969}
-  m_Layer: 0
-  m_Name: Road
+  m_Layer: 7
+  m_Name: Long Road
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!64 &229857969
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -743,6 +743,38 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!1 &269258701
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 269258702}
+  m_Layer: 0
+  m_Name: Road Pool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &269258702
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 269258701}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2047506189}
+  m_Father: {fileID: 1214237518}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &389321102
 GameObject:
   m_ObjectHideFlags: 0
@@ -2073,8 +2105,8 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
-  m_Antialiasing: 0
+  m_RenderPostProcessing: 1
+  m_Antialiasing: 1
   m_AntialiasingQuality: 2
   m_StopNaN: 0
   m_Dithering: 0
@@ -2347,8 +2379,8 @@ GameObject:
   - component: {fileID: 1104645612}
   - component: {fileID: 1104645611}
   - component: {fileID: 1104645610}
-  m_Layer: 0
-  m_Name: Cube (1)
+  m_Layer: 7
+  m_Name: Sidewalk Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2549,6 +2581,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 477131085}
+  - {fileID: 269258702}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2565,9 +2598,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vehicleRoadType: 0
-  currentVehicleRoadType: 
   pedestrianRoadType: 0
-  currentPedestrianRoadType: 
+  roadPreview: {fileID: 6949165726275052257, guid: bd0c79b3bf147a640ba167a950acd398, type: 3}
+  twoWayRoad: {fileID: 2877740764239499437, guid: 707d29cf5c5128042a0d41fec0673fa1, type: 3}
+  oneWayRoad: {fileID: 0}
+  asymetricRoad: {fileID: 0}
+  highwayRoad: {fileID: 0}
+  countyRoad: {fileID: 0}
 --- !u!114 &1214237520
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2583,11 +2620,20 @@ MonoBehaviour:
   cam: {fileID: 963194227}
   lifeCycleManager: {fileID: 1214237521}
   buildingManager: {fileID: 1214237517}
+  roadManager: {fileID: 1214237519}
   selectedObject: {fileID: 0}
   mode: 0
+  roadPreviewPrefab: {fileID: 6949165726275052257, guid: bd0c79b3bf147a640ba167a950acd398, type: 3}
+  vehicleRoadNodes: []
+  vehicleRoads: []
+  roadCreationPoints:
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  singleGrid: {fileID: 913939587240664015, guid: 5bcd5155d5120464f9a7c47f1d2c1ef5, type: 3}
   residentalParent: {fileID: 1160885240}
   commercialParent: {fileID: 496848804}
   uniqueParent: {fileID: 152791972}
+  vehicleRoadParent: {fileID: 2047506188}
 --- !u!114 &1214237521
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2991,8 +3037,8 @@ GameObject:
   - component: {fileID: 1621286972}
   - component: {fileID: 1621286971}
   - component: {fileID: 1621286970}
-  m_Layer: 0
-  m_Name: Cube
+  m_Layer: 7
+  m_Name: Sidewalk Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3682,6 +3728,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2036562638}
   m_CullTransparentMesh: 1
+--- !u!1 &2047506188
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2047506189}
+  m_Layer: 0
+  m_Name: Vehicle Road Pool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2047506189
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2047506188}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 269258702}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2126819950
 GameObject:
   m_ObjectHideFlags: 0

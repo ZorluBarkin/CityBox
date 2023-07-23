@@ -32,6 +32,7 @@ public class VehicleRoad
     private bool tram;
     private bool sideWalk;
     private bool wooded;
+    private bool parkable;
     
     public VehicleRoad(VehicleRoadType type)
     {
@@ -45,6 +46,7 @@ public class VehicleRoad
                     laneSize[2] = 6;
 
                     emergencyLane = true;
+                    parkable = true;
                     bikeLane = false;
                     bussLane = false;
                     lights = true;
@@ -65,6 +67,7 @@ public class VehicleRoad
                     laneSize[2] = 4;
 
                     emergencyLane = true;
+                    parkable = true;
                     bikeLane = false;
                     bussLane = false;
                     lights = true;
@@ -83,6 +86,7 @@ public class VehicleRoad
                     laneSize[1] = 5; // 3 towards 2 outwards
 
                     emergencyLane = true;
+                    parkable = true;
                     bikeLane = false;
                     bussLane = false;
                     lights = true;
@@ -102,6 +106,7 @@ public class VehicleRoad
                     laneSize[2] = 5;
 
                     emergencyLane = true;
+                    parkable = false;
                     bikeLane = false;
                     bussLane = false;
                     lights = true;
@@ -118,7 +123,8 @@ public class VehicleRoad
                     laneSize = new int[1];
                     laneSize[0] = 2;
 
-                    emergencyLane = false; 
+                    emergencyLane = false;
+                    parkable = false;
                     bikeLane = true; // may be on but hidden on model
                     bussLane = false;
                     lights = false;
@@ -181,14 +187,22 @@ public class PedestrianRoad
 public class RoadManager : MonoBehaviour
 {
     public VehicleRoadType vehicleRoadType = VehicleRoadType.None;
-    public string currentVehicleRoadType = ""; // debug
+    //public string currentVehicleRoadType = ""; // debug
     public PedestrianRoadType pedestrianRoadType = PedestrianRoadType.None;
-    public string currentPedestrianRoadType = ""; // debug
+    //public string currentPedestrianRoadType = ""; // debug
 
-    private void Update()
-    {
-        currentVehicleRoadType = vehicleRoadType.ToString();
-        currentPedestrianRoadType = pedestrianRoadType.ToString();
-    }
+    [Header("Road GameObjects")] // might change later
+    public GameObject roadPreview;
+    public GameObject twoWayRoad;
+    public GameObject oneWayRoad;
+    public GameObject asymetricRoad;
+    public GameObject highwayRoad;
+    public GameObject countyRoad;
+
+    //private void Update()
+    //{
+    //    currentVehicleRoadType = vehicleRoadType.ToString();
+    //    currentPedestrianRoadType = pedestrianRoadType.ToString();
+    //}
 
 }

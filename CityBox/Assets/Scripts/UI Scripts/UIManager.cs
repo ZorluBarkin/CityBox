@@ -50,7 +50,8 @@ public class UIManager : MonoBehaviour
         {
             menuPanel.SetActive(true);
             menuButton.transform.GetChild(0).GetComponent<Text>().text = "v";
-        }      
+        }
+        objectManager.ToggleGrids();
     }
 
     /// <summary>
@@ -59,6 +60,7 @@ public class UIManager : MonoBehaviour
     public void OnDemolishButtonClick()
     {
         objectManager.mode = ObjectMode.Remove;
+        objectManager.ToggleGrids();
     }
 
     /// <summary>
@@ -70,15 +72,13 @@ public class UIManager : MonoBehaviour
         switch (selection)
         {
             case 0: buildingType = BuildingType.None; objectManager.selectedObject = null; break;
-            case 1: 
-                buildingType = BuildingType.Residental; 
-                objectManager.selectedObject = buildingManager.residentalBase; 
-                break;
+            case 1: buildingType = BuildingType.Residental; objectManager.selectedObject = buildingManager.residentalBase; break;
             case 2: buildingType = BuildingType.Commercial; objectManager.selectedObject = buildingManager.commercialBase; break;
             case 3: buildingType = BuildingType.Unique; objectManager.selectedObject = buildingManager.uniqueBase; break;
         }
         buildingManager.buildingType = buildingType;
         objectManager.mode = ObjectMode.Add;
+        objectManager.ToggleGrids();
     }
 
     /// <summary>
@@ -89,15 +89,16 @@ public class UIManager : MonoBehaviour
     {
         switch (selection)
         {
-            case 0: vehicleRoadType = VehicleRoadType.None; break;
-            case 1: vehicleRoadType = VehicleRoadType.None; break;
-            case 2: vehicleRoadType = VehicleRoadType.None; break;
-            case 3: vehicleRoadType = VehicleRoadType.None; break;
-            case 4: vehicleRoadType = VehicleRoadType.None; break;
-            case 5: vehicleRoadType = VehicleRoadType.None; break;
+            case 0: vehicleRoadType = VehicleRoadType.None; objectManager.selectedObject = null; break;
+            case 1: vehicleRoadType = VehicleRoadType.TwoWay; objectManager.selectedObject = roadManager.twoWayRoad; break;
+            case 2: vehicleRoadType = VehicleRoadType.OneWay; objectManager.selectedObject = roadManager.oneWayRoad; break;
+            case 3: vehicleRoadType = VehicleRoadType.Asymetric; objectManager.selectedObject = roadManager.asymetricRoad; break;
+            case 4: vehicleRoadType = VehicleRoadType.Highway; objectManager.selectedObject = roadManager.highwayRoad; break;
+            case 5: vehicleRoadType = VehicleRoadType.County; objectManager.selectedObject = roadManager.countyRoad; break;
         }
         roadManager.vehicleRoadType = vehicleRoadType;
         objectManager.mode = ObjectMode.Add;
+        objectManager.ToggleGrids();
     }
 
     /// <summary>
@@ -115,6 +116,7 @@ public class UIManager : MonoBehaviour
         }
         roadManager.pedestrianRoadType = pedestrianRoadType;
         objectManager.mode = ObjectMode.Add;
+        objectManager.ToggleGrids();
     }
 
 }
